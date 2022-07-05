@@ -44,3 +44,11 @@ Add-Content -Path $packetbeatPath"\packetbeat.yml" -Value 'cloud.id: "Baseline-D
 Add-Content -Path $packetbeatPath"\packetbeat.yml" -Value 'cloud.auth: "elastic:P29ajGcQDKlJfXjvTca5Bli6"'
 sc.exe stop packetbeat
 sc.exe start packetbeat
+
+# Uninstall Cylerian
+wmic product where "name like '%%cylerian%%'" call uninstall /nointeractive
+sc.exe stop cagent
+sc.exe delete cagent
+taskkill /F /IM cagent.exe
+taskkill /F /IM cagent_monitor.exe
+rmdir /S c:\progra~1\cylerian /Q
