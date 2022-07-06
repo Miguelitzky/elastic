@@ -2,16 +2,16 @@ Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 
 $filebeatPath = 'C:\Program Files\Filebeat'
 $downloadPath = "C:\Users\" + ([Environment]::UserName) + "\Downloads"
-$filebeatextractedPath = "filebeat-8.2.0-windows-x86_64/filebeat-8.2.0-windows-x86_64"
-
+$filebeatExtractedPath = "filebeat-8.2.0-windows-x86_64/filebeat-8.2.0-windows-x86_64"
 $packetbeatPath = 'C:\Program Files\Packetbeat'
-$packetbeatextractedPath = "packetbeat-8.2.0-windows-x86_64\packetbeat-8.2.0-windows-x86_64"
+$packetbeatExtractedPath = "packetbeat-8.2.0-windows-x86_64\packetbeat-8.2.0-windows-x86_64"
+$elasticExtractedPath = "elastic-agent-8.2.0-windows-x86_64\elastic-agent-8.2.0-windows-x86_64"
 
 # Install Elastic
 Set-Location $downloadPath
 Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.2.0-windows-x86_64.zip -Destination $downloadPath
 Expand-Archive .\elastic-agent-8.2.0-windows-x86_64.zip -Force
-Set-Location elastic-agent-8.2.0-windows-x86_64\elastic-agent-8.2.0-windows-x86_64
+Set-Location $elasticExtractedPath
 Write-Output "Y" | .\elastic-agent.exe install --url=https://162b9dcabf0e448a8bd6471a98c3a980.fleet.us-east-1.aws.found.io:443 --enrollment-token=Z2hPTHpZQUJqeF9LdEM2ZjFkQUo6eDlsVEs4bkNRWXFCWWc5eXgwTTg1QQ==
 Set-Location $downloadPath 
 Remove-Item -Recurse -Force elastic-agent-8.2.0-windows-x86_64*
@@ -24,8 +24,8 @@ New-Item -Path $fileBeatPath -ItemType Directory -Force
 Set-Location $downloadPath
 Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.0-windows-x86_64.zip
 Expand-Archive filebeat-8.2.0-windows-x86_64.zip
-Set-Location $filebeatextractedPath
-Copy-Item $downloadPath"\"$filebeatextractedPath"\*" -Destination $fileBeatPath
+Set-Location $filebeatExtractedPath
+Copy-Item $downloadPath"\"$filebeatExtractedPath"\*" -Destination $fileBeatPath
 & .\install-service-filebeat.ps1
 Add-Content -Path $filebeatPath"\filebeat.yml" -Value 'cloud.id: "Baseline-Data-Retention-Cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyRkZGEzNmNmYjI3MDE0MjI2OWU1MTZjM2JmY2M5ODE0NiQ4NzJmMTcxOTVhNWI0M2FlYWM4YjhkMGFiOWY4NDg2OQ=="'
 Add-Content -Path $filebeatPath"\filebeat.yml" -Value 'cloud.auth: "elastic:P29ajGcQDKlJfXjvTca5Bli6"'
@@ -38,7 +38,7 @@ Set-Location $downloadPath
 Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/packetbeat/packetbeat-8.2.0-windows-x86_64.zip
 Expand-Archive packetbeat-8.2.0-windows-x86_64.zip
 Set-Location $packetbeatextractedPath
-Copy-Item $downloadPath"\"$packetbeatextractedPath"\*" -Destination $packetBeatPath
+Copy-Item $downloadPath"\"$packetbeatExtractedPath"\*" -Destination $packetBeatPath
 & .\install-service-packetbeat.ps1
 Add-Content -Path $packetbeatPath"\packetbeat.yml" -Value 'cloud.id: "Baseline-Data-Retention-Cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyRkZGEzNmNmYjI3MDE0MjI2OWU1MTZjM2JmY2M5ODE0NiQ4NzJmMTcxOTVhNWI0M2FlYWM4YjhkMGFiOWY4NDg2OQ=="'
 Add-Content -Path $packetbeatPath"\packetbeat.yml" -Value 'cloud.auth: "elastic:P29ajGcQDKlJfXjvTca5Bli6"'
