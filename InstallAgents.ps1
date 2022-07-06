@@ -1,4 +1,4 @@
-set-executionpolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
 
 $filebeatPath = 'C:\Program Files\Filebeat'
 $downloadPath = "C:\Users\" + ([Environment]::UserName) + "\Downloads"
