@@ -67,5 +67,8 @@ sc.exe stop "Packetbeat"
 sc.exe start "Packetbeat"
 
 Rem Cleanup Files
-del C:\Windows\Temp\*elastic*
-del C:\Windows\Temp\*beat*
+cd C:\Windows\Temp
+del *.zip
+rmdir %filebeatExtractedPath%
+rmdir %packetbeatExtractedPath%
+rmdir %elasticExtractedPath%
