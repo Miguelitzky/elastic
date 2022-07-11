@@ -1,17 +1,19 @@
 ﻿# Download Files
 Set-Location 'C:\Windows\Temp'
-Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.0-windows-x86_64.zip
-Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/packetbeat/packetbeat-8.2.0-windows-x86_64.zip
-Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.2.0-windows-x86_64.zip
+Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.3-windows-x86_64.zip
+Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/packetbeat/packetbeat-8.2.3-windows-x86_64.zip
+Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.2.3-windows-x86_64.zip
+Start-BitsTransfer -Source https://artifacts.elastic.co/downloads/beats/winlogbeat/winlogbeat-8.2.3-windows-x86_64.zip
 
 # Create Directories
 New-Item -Path 'C:\Program Files\Filebeat' -ItemType Directory -Force
 New-Item -Path 'C:\Program Files\Packetbeat' -ItemType Directory -Force
 
 # Extract Everything
-Expand-Archive filebeat-8.2.0-windows-x86_64.zip -Force
-Expand-Archive packetbeat-8.2.0-windows-x86_64.zip -Force
-Expand-Archive elastic-agent-8.2.0-windows-x86_64.zip -Force
+Expand-Archive filebeat-8.2.3-windows-x86_64.zip -Force
+Expand-Archive packetbeat-8.2.3-windows-x86_64.zip -Force
+Expand-Archive elastic-agent-8.2.3-windows-x86_64.zip -Force
+Expand-Archive winlogbeat-8.2.3-windows-x86_64.zip -Force
 
 # Move files
 Copy-Item 'C:\Windows\Temp\filebeat-8.2.0-windows-x86_64/filebeat-8.2.0-windows-x86_64\*' -Destination 'C:\Program Files\Filebeat\'
@@ -35,10 +37,9 @@ Add-Content -Path 'C:\Program Files\Filebeat\filebeat.yml' -Value 'cloud.auth: "
 Add-Content -Path 'C:\Program Files\Packetbeat\packetbeat.yml' -Value 'cloud.id: "Baseline-Data-Retention-Cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyRkZGEzNmNmYjI3MDE0MjI2OWU1MTZjM2JmY2M5ODE0NiQ4NzJmMTcxOTVhNWI0M2FlYWM4YjhkMGFiOWY4NDg2OQ=="'
 Add-Content -Path 'C:\Program Files\Packetbeat\packetbeat.yml' -Value 'cloud.auth: "elastic:P29ajGcQDKlJfXjvTca5Bli6"'
 
+
 # Restart Services
-sc.exe stop elastic
-sc.exe start elastic
-sc.exe stop filebeat
-sc.exe start filebeat
-sc.exe stop packetbeat
-sc.exe start packetbeat
+Restart-Service -Name 'ElasticEndpoint'
+Restart-Service -Name 'Elastic Agent'
+Restart-Service -Name 'filebeat'
+Restart-Service -Name 'packetbeat'
