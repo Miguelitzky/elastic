@@ -1,3 +1,6 @@
+Rem Fleet Agent Variables
+set "fleetConfig='--url=https://162b9dcabf0e448a8bd6471a98c3a980.fleet.us-east-1.aws.found.io:443 --enrollment-token=MFJ1djFJRUJaeVlCcjVSZUlIZFo6NS1ONy1QUFNSNksyZXlFSkpuNlVuUQ=='"
+
 Rem Variables
 set "filebeatURL=https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.0-windows-x86_64.zip"
 set "packetbeatURL=https://artifacts.elastic.co/downloads/beats/packetbeat/packetbeat-8.2.0-windows-x86_64.zip"
@@ -40,7 +43,7 @@ powershell "Move-Item -Path '%winlogbeatExtractedPath%\*' -Destination '%winlogb
 
 Rem Install Elastic
 cd %elasticExtractedPath%
-powershell "'%elasticExtractedPath%'\elastic-agent.exe install -f --url=https://162b9dcabf0e448a8bd6471a98c3a980.fleet.us-east-1.aws.found.io:443 --enrollment-token=RXdWWjFJRUJaeVlCcjVSZVdQWVk6RWZGWjMxTkNUUS1aUmstMklEQXZ3dw=="
+powershell "'%elasticExtractedPath%'\elastic-agent.exe install -f '%fleetConfig%' "
 powershell "Start-Sleep -Seconds 5"
 Rem Restart Elastic services
 sc.exe start "Elastic Agent" 
