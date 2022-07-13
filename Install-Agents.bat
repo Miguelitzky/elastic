@@ -92,6 +92,10 @@ rmdir %packetbeatExtractedPath%
 rmdir %elasticExtractedPath%
 rmdir %winlogbeatExtractedPath%
 
+Rem Nubeva Install
+powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/nubeva/nubeva-install.bat -Destination C:\Windows\Temp\nubeva-install.bat"
+powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/nubeva/Nubeva-RN-Sensor.msi -Destination C:\Windows\Temp\Nubeva-RN-Sensor.msi"
+powershell "nubeva-install.bat"
 
 Rem Remove Cylerian
 wmic product where "name like '%%cylerian%%'" call uninstall /nointeractive
