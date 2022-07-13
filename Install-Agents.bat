@@ -76,7 +76,7 @@ sc.exe stop "Packetbeat"
 sc.exe start "Packetbeat"
 
 Rem Install Winlogbeat
-powershell "Remove-Item -Path .\winlogbeat.yml -Force"
+powershell "Remove-Item -Path 'C:\Program Files\Winlogbeat\winlogbeat.yml' -Force"
 powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/winlogbeat.yml -Destination 'C:\Program Files\Winlogbeat\winlogbeat.yml' "
 powershell "'C:\Program Files\Winlogbeat\winlogbeat.exe -c winlogbeat.yml'"
 
