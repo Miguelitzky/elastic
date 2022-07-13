@@ -3,7 +3,10 @@ Rem This script doesn't currently use any variables as it's the first iteration.
 Rem Variables
 set "filebeatURL=https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.0-windows-x86_64.zip"
 set "packetbeatURL=https://artifacts.elastic.co/downloads/beats/packetbeat/packetbeat-8.2.0-windows-x86_64.zip"
+set "winlogbeatURL=https://artifacts.elastic.co/downloads/beats/winlogbeat/winlogbeat-8.2.0-windows-x86_64.zip"
 set "elasticURL=https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.2.0-windows-x86_64.zip"
+
+set ""
 set "elasticSaveAs=C:\Windows\Temp\elastic.zip"
 set "filebeatSaveAs=C:\Windows\Temp\filebeat.zip"
 set "packetbeatSaveAs=C:\Windows\Temp\packetbeat.zip"

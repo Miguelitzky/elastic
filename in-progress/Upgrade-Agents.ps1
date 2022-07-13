@@ -16,7 +16,7 @@ Expand-Archive elastic-agent-8.2.3-windows-x86_64.zip -Force
 Expand-Archive winlogbeat-8.2.3-windows-x86_64.zip -Force
 
 # Move files
-Copy-Item 'C:\Windows\Temp\filebeat-8.2.0-windows-x86_64/filebeat-8.2.0-windows-x86_64\*' -Destination 'C:\Program Files\Filebeat\'
+Copy-Item 'C:\Windows\Temp\filebeat-8.2.0-windows-x86_64\filebeat-8.2.0-windows-x86_64\*' -Destination 'C:\Program Files\Filebeat\'
 Copy-Item 'C:\Windows\Temp\packetbeat-8.2.0-windows-x86_64\packetbeat-8.2.0-windows-x86_64\*' -Destination 'C:\Program Files\Packetbeat\'
 
 # Install Elastic   
