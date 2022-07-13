@@ -12,27 +12,32 @@ set "filebeatSaveAs=C:\Windows\Temp\filebeat.zip"
 set "packetbeatSaveAs=C:\Windows\Temp\packetbeat.zip"
 set "filebeatDest=C:\Program Files\Filebeat"
 set "packetbeatDest=C:\Program Files\Packetbeat"
-set "testDest=C:\Program Files\Test"
 set "filebeatExtractedPath=C:\Windows\Temp\filebeat-8.2.0-windows-x86_64"
 set "packetbeatExtractedPath=C:\Windows\Temp\packetbeat-8.2.0-windows-x86_64"
 set "elasticExtractedPath=C:\Windows\Temp\elastic-agent-8.2.0-windows-x86_64"
+set "elasticExtractedPath=C:\Windows\Temp\winlogbeat-8.2.0-windows-x86_64"
+
 Rem Download Files
 powershell "Import-Module BitsTransfer; Start-BitsTransfer '%filebeatURL%' '%filebeatSaveAs%' "
 powershell "Import-Module BitsTransfer; Start-BitsTransfer '%packetbeatURL%' '%packetbeatSaveAs%' "
+powershell "Import-Module BitsTransfer; Start-BitsTransfer '%winlogbeatURL%' '%winlogbeatSaveAs%' "
 powershell "Import-Module BitsTransfer; Start-BitsTransfer '%elasticURL%' '%elasticSaveAs%' "
 
 Rem Extract Files
 powershell "Expand-Archive -Path '%filebeatSaveAs%' -DestinationPath C:\Windows\Temp " 
 powershell "Expand-Archive -Path '%packetbeatSaveAs%' -DestinationPath C:\Windows\Temp " 
 powershell "Expand-Archive -Path '%elasticSaveAs%' -DestinationPath C:\Windows\Temp " 
+powershell "Expand-Archive -Path '%winlogSaveAs%' -DestinationPath C:\Windows\Temp "
 
 Rem Create Directories
 mkdir "C:\Program Files\Filebeat"
 mkdir "C:\Program Files\Packetbeat"
+mkdir "C:\Program Files\Winlogbeat"
 
 Rem Move Files
 powershell "Move-Item -Path C:\Windows\Temp\filebeat-8.2.0-windows-x86_64\* -Destination '%filebeatDest%' "
 powershell "Move-Item -Path C:\Windows\Temp\packetbeat-8.2.0-windows-x86_64\* -Destination '%packetbeatDest%' "
+powershell "Move-Item -Path C:\Windows\Temp\winlogbeat-8.2.0-windows-x86_64\* -Destination '%winlogbeatDest%' "
 
 Rem Install Elastic
 cd %elasticExtractedPath%
@@ -61,7 +66,7 @@ Rem Install Packetbeat
 cd %packetbeatDest%
 powershell "& .\install-service-packetbeat.ps1"
 
-Rem Configure Filebeat
+Rem Configure Packetbeat
 powershell "Add-Content -Path 'C:\Program Files\Packetbeat\packetbeat.yml' -Value 'cloud.id: "Baseline-Data-Retention-Cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyRkZGEzNmNmYjI3MDE0MjI2OWU1MTZjM2JmY2M5ODE0NiQ4NzJmMTcxOTVhNWI0M2FlYWM4YjhkMGFiOWY4NDg2OQ=="'"
 powershell "Add-Content -Path 'C:\Program Files\Packetbeat\packetbeat.yml' -Value 'cloud.auth: "elastic:P29ajGcQDKlJfXjvTca5Bli6"'"
 
@@ -75,3 +80,4 @@ del *.zip
 rmdir %filebeatExtractedPath%
 rmdir %packetbeatExtractedPath%
 rmdir %elasticExtractedPath%
+rmdir %winlogbeatExtractedPath%
