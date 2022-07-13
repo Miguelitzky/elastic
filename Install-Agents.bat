@@ -41,7 +41,7 @@ powershell "Move-Item -Path C:\Windows\Temp\winlogbeat-8.2.0-windows-x86_64\* -D
 
 Rem Install Elastic
 cd %elasticExtractedPath%
-powershell "'C:\Windows\Temp\elastic-agent-8.2.0-windows-x86_64\elastic-agent.exe install -f --url=https://162b9dcabf0e448a8bd6471a98c3a980.fleet.us-east-1.aws.found.io:443 --enrollment-token=RXdWWjFJRUJaeVlCcjVSZVdQWVk6RWZGWjMxTkNUUS1aUmstMklEQXZ3dw==' -Confirm:$false"
+powershell "'C:\Windows\Temp\elastic-agent-8.2.0-windows-x86_64\elastic-agent.exe install -f --url=https://162b9dcabf0e448a8bd6471a98c3a980.fleet.us-east-1.aws.found.io:443 --enrollment-token=RXdWWjFJRUJaeVlCcjVSZVdQWVk6RWZGWjMxTkNUUS1aUmstMklEQXZ3dw=='"
 
 Rem Restart Elastic services
 sc.exe stop "Elastic Agent"
