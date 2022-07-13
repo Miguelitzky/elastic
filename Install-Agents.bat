@@ -1,5 +1,3 @@
-Rem This script doesn't currently use any variables as it's the first iteration. 
-
 Rem Variables
 set "filebeatURL=https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.0-windows-x86_64.zip"
 set "packetbeatURL=https://artifacts.elastic.co/downloads/beats/packetbeat/packetbeat-8.2.0-windows-x86_64.zip"
