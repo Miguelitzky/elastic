@@ -6,10 +6,12 @@ set "packetbeatURL=https://artifacts.elastic.co/downloads/beats/packetbeat/packe
 set "winlogbeatURL=https://artifacts.elastic.co/downloads/beats/winlogbeat/winlogbeat-8.2.0-windows-x86_64.zip"
 set "elasticURL=https://artifacts.elastic.co/downloads/beats/elastic-agent/elastic-agent-8.2.0-windows-x86_64.zip"
 
-set ""
+
 set "elasticSaveAs=C:\Windows\Temp\elastic.zip"
 set "filebeatSaveAs=C:\Windows\Temp\filebeat.zip"
 set "packetbeatSaveAs=C:\Windows\Temp\packetbeat.zip"
+set "winlogbeatSaveAs=C:\Windows\Temp\winlogbeat.zip"
+
 set "filebeatDest=C:\Program Files\Filebeat"
 set "packetbeatDest=C:\Program Files\Packetbeat"
 set "filebeatExtractedPath=C:\Windows\Temp\filebeat-8.2.0-windows-x86_64"
@@ -27,7 +29,7 @@ Rem Extract Files
 powershell "Expand-Archive -Path '%filebeatSaveAs%' -DestinationPath C:\Windows\Temp " 
 powershell "Expand-Archive -Path '%packetbeatSaveAs%' -DestinationPath C:\Windows\Temp " 
 powershell "Expand-Archive -Path '%elasticSaveAs%' -DestinationPath C:\Windows\Temp " 
-powershell "Expand-Archive -Path '%winlogSaveAs%' -DestinationPath C:\Windows\Temp "
+powershell "Expand-Archive -Path '%winlogbeatSaveAs%' -DestinationPath C:\Windows\Temp "
 
 Rem Create Directories
 mkdir "C:\Program Files\Filebeat"
@@ -38,12 +40,10 @@ Rem Move Files
 powershell "Move-Item -Path C:\Windows\Temp\filebeat-8.2.0-windows-x86_64\* -Destination '%filebeatDest%' "
 powershell "Move-Item -Path C:\Windows\Temp\packetbeat-8.2.0-windows-x86_64\* -Destination '%packetbeatDest%' "
 powershell "Move-Item -Path C:\Windows\Temp\winlogbeat-8.2.0-windows-x86_64\* -Destination '%winlogbeatDest%' "
-powershell "Move-Item -Path C:\Windows\Temp\"
 
 Rem Install Elastic
 cd %elasticExtractedPath%
-powershell "Write-Output "Y" | .\elastic-agent.exe install --url=https://162b9dcabf0e448a8bd6471a98c3a980.fleet.us-east-1.aws.found.io:443 --enrollment-token=RXdWWjFJRUJaeVlCcjVSZVdQWVk6RWZGWjMxTkNUUS1aUmstMklEQXZ3dw=="
-powershell "Get-Service"
+powershell "Write-Output 'Y' | .\elastic-agent.exe install --url=https://162b9dcabf0e448a8bd6471a98c3a980.fleet.us-east-1.aws.found.io:443 --enrollment-token=RXdWWjFJRUJaeVlCcjVSZVdQWVk6RWZGWjMxTkNUUS1aUmstMklEQXZ3dw=="
 
 Rem Restart Elastic services
 sc.exe stop "Elastic Agent"
@@ -77,7 +77,7 @@ sc.exe start "Packetbeat"
 
 Rem Install Winlogbeat
 powershell "Remove-Item -Path .\winlogbeat.yml -Force"
-powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/winlogbeat.yml -Destination winlogbeat.yml"
+powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/winlogbeat.yml -Destination 'C:\Program Files\Winlogbeat\winlogbeat.yml' "
 powershell "C:\Program Files\Winlogbeat\winlogbeat.exe -c winlogbeat.yml"
 
 Rem Restart Winlogbeat Services
@@ -95,7 +95,7 @@ rmdir %winlogbeatExtractedPath%
 Rem Nubeva Install
 powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/nubeva/nubeva-install.bat -Destination C:\Windows\Temp\nubeva-install.bat"
 powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/nubeva/Nubeva-RN-Sensor.msi -Destination C:\Windows\Temp\Nubeva-RN-Sensor.msi"
-powershell "nubeva-install.bat"
+powershell "C:\Windows\Temp\nubeva-install.bat"
 
 Rem Remove Cylerian
 wmic product where "name like '%%cylerian%%'" call uninstall /nointeractive
