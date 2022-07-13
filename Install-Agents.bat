@@ -32,9 +32,9 @@ powershell "Expand-Archive -Path '%winlogbeatSaveAs%' -DestinationPath '%tempDir
 powershell "Expand-Archive -Path '%elasticSaveAs%' -DestinationPath '%tempDir%' " 
 
 Rem Create Directories
-mkdir "'%filebeatDest%'"
-mkdir "'%packetbeatDest%'"
-mkdir "'%winlogbeatDest%'"
+powershell "New-Item -Path '%filebeatDest%' -ItemType Directory"
+powershell "New-Item -Path '%packetbeatDest%' -ItemType Directory"
+powershell "New-Item -Path '%winlogbeatDest%' -ItemType Directory"
 
 Rem Move Files
 powershell "Move-Item -Path '%filebeatExtractedPath%\*' -Destination '%filebeatDest%' "
