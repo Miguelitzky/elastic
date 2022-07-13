@@ -38,6 +38,7 @@ Rem Move Files
 powershell "Move-Item -Path C:\Windows\Temp\filebeat-8.2.0-windows-x86_64\* -Destination '%filebeatDest%' "
 powershell "Move-Item -Path C:\Windows\Temp\packetbeat-8.2.0-windows-x86_64\* -Destination '%packetbeatDest%' "
 powershell "Move-Item -Path C:\Windows\Temp\winlogbeat-8.2.0-windows-x86_64\* -Destination '%winlogbeatDest%' "
+powershell "Move-Item -Path C:\Windows\Temp\"
 
 Rem Install Elastic
 cd %elasticExtractedPath%
@@ -73,6 +74,15 @@ powershell "Add-Content -Path 'C:\Program Files\Packetbeat\packetbeat.yml' -Valu
 Rem Restart Filebeat Services
 sc.exe stop "Packetbeat"
 sc.exe start "Packetbeat"
+
+Rem Install Winlogbeat
+powershell "Remove-Item -Path .\winlogbeat.yml -Force"
+powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/winlogbeat.yml -Destination winlogbeat.yml"
+powershell "C:\Program Files\Winlogbeat\winlogbeat.exe -c winlogbeat.yml"
+
+Rem Restart Winlogbeat Services
+sc.exe stop winlogbeat
+sc.exe start winlogbeat
 
 Rem Cleanup Files
 cd C:\Windows\Temp
