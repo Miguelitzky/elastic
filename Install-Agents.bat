@@ -17,7 +17,7 @@ set "packetbeatDest=C:\Program Files\Packetbeat"
 set "filebeatExtractedPath=C:\Windows\Temp\filebeat-8.2.0-windows-x86_64"
 set "packetbeatExtractedPath=C:\Windows\Temp\packetbeat-8.2.0-windows-x86_64"
 set "elasticExtractedPath=C:\Windows\Temp\elastic-agent-8.2.0-windows-x86_64"
-set "elasticExtractedPath=C:\Windows\Temp\winlogbeat-8.2.0-windows-x86_64"
+set "winlogbeatExtractedPath=C:\Windows\Temp\winlogbeat-8.2.0-windows-x86_64"
 
 Rem Download Files
 powershell "Import-Module BitsTransfer; Start-BitsTransfer '%filebeatURL%' '%filebeatSaveAs%' "
@@ -43,7 +43,7 @@ powershell "Move-Item -Path C:\Windows\Temp\winlogbeat-8.2.0-windows-x86_64\* -D
 
 Rem Install Elastic
 cd %elasticExtractedPath%
-powershell "Write-Output 'Y' | .\elastic-agent.exe install --url=https://162b9dcabf0e448a8bd6471a98c3a980.fleet.us-east-1.aws.found.io:443 --enrollment-token=RXdWWjFJRUJaeVlCcjVSZVdQWVk6RWZGWjMxTkNUUS1aUmstMklEQXZ3dw=="
+powershell "Write-Output 'Y' | '%%'+'\'+elastic-agent.exe install --url=https://162b9dcabf0e448a8bd6471a98c3a980.fleet.us-east-1.aws.found.io:443 --enrollment-token=RXdWWjFJRUJaeVlCcjVSZVdQWVk6RWZGWjMxTkNUUS1aUmstMklEQXZ3dw=="
 
 Rem Restart Elastic services
 sc.exe stop "Elastic Agent"
