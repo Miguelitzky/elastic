@@ -57,8 +57,7 @@ Rem Configure Filebeat
 powershell "Add-Content -Path 'C:\Program Files\Filebeat\filebeat.yml' -Value 'cloud.id: "Baseline-Data-Retention-Cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyRkZGEzNmNmYjI3MDE0MjI2OWU1MTZjM2JmY2M5ODE0NiQ4NzJmMTcxOTVhNWI0M2FlYWM4YjhkMGFiOWY4NDg2OQ=="'"
 powershell "Add-Content -Path 'C:\Program Files\Filebeat\filebeat.yml' -Value 'cloud.auth: "elastic:P29ajGcQDKlJfXjvTca5Bli6"'"
 
-Rem Restart Filebeat Services
-sc.exe stop "Filebeat"
+Rem Start Filebeat Services
 sc.exe start "Filebeat"
 
 Rem Install Packetbeat
@@ -69,8 +68,7 @@ Rem Configure Packetbeat
 powershell "Add-Content -Path 'C:\Program Files\Packetbeat\packetbeat.yml' -Value 'cloud.id: "Baseline-Data-Retention-Cluster:dXMtZWFzdC0xLmF3cy5mb3VuZC5pbyRkZGEzNmNmYjI3MDE0MjI2OWU1MTZjM2JmY2M5ODE0NiQ4NzJmMTcxOTVhNWI0M2FlYWM4YjhkMGFiOWY4NDg2OQ=="'"
 powershell "Add-Content -Path 'C:\Program Files\Packetbeat\packetbeat.yml' -Value 'cloud.auth: "elastic:P29ajGcQDKlJfXjvTca5Bli6"'"
 
-Rem Restart Filebeat Services
-sc.exe stop "Packetbeat"
+Rem Start Filebeat Services
 sc.exe start "Packetbeat"
 
 Rem Install Winlogbeat
@@ -79,8 +77,7 @@ powershell "Remove-Item -Path 'C:\Program Files\Winlogbeat\winlogbeat.yml' -Forc
 powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/winlogbeat.yml -Destination 'C:\Program Files\Winlogbeat\winlogbeat.yml' "
 powershell "& .\install-service-winlogbeat.ps1"
 
-Rem Restart Winlogbeat Services
-sc.exe stop winlogbeat
+Rem Start Winlogbeat Services
 sc.exe start winlogbeat
 
 Rem Cleanup Files
