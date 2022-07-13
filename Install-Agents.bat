@@ -43,7 +43,7 @@ powershell "Move-Item -Path '%winlogbeatExtractedPath%\*' -Destination '%winlogb
 
 Rem Install Elastic
 cd %elasticExtractedPath%
-powershell "'%elasticExtractedPath%'\elastic-agent.exe install -f '%fleetConfig%' "
+powershell "'%elasticExtractedPath%\elastic-agent.exe' install -f '%fleetConfig%' "
 powershell "Start-Sleep -Seconds 5"
 Rem Restart Elastic services
 sc.exe start "Elastic Agent" 
