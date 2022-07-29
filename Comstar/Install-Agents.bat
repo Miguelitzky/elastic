@@ -78,14 +78,8 @@ powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-r
 powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/nubeva/Nubeva-RN-Sensor.msi -Destination C:\Windows\Temp\Nubeva-RN-Sensor.msi"
 powershell "C:\Windows\Temp\nubeva-install.bat"
 
-Rem Remove Cylerian
-Rem wmic product where "name like '%%cylerian%%'" call uninstall /nointeractive
-Rem sc.exe stop cagent
-Rem sc.exe delete cagent
-Rem taskkill /F /IM cagent.exe
-Rem taskkill /F /IM cagent_monitor.exe
-Rem rmdir /S c:\progra~1\cylerian /Q
-
+Rem Download Cylerian Removal Script
+powershell "Import-Module BitsTransfer; Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/remove-cylerian.bat -Destination C:\Windows\Temp\remove-cylerian.bat"
 Rem Cleanup Files
 cd C:\Windows\Temp
 powershell "Remove-Item -Path '%filebeatExtractedPath%' -Force"
