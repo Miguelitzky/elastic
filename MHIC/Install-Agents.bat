@@ -79,7 +79,7 @@ powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-r
 powershell "C:\Windows\Temp\nubeva-install.bat"
 
 Rem Download Cylerian Removal Script
-powershell "Import-Module BitsTransfer; Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-risk/elastic/main/remove-cylerian.bat -Destination C:\Windows\Temp\remove-cylerian.bat"
+powershell "Import-Module BitsTransfer; Start-BitsTransfer -Source https://github.com/arcas-risk/elastic/blob/main/remove-cylerian.bat -Destination C:\Windows\Temp\remove-cylerian.bat"
 
 Rem Cleanup Files
 cd C:\Windows\Temp
