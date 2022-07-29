@@ -1,4 +1,4 @@
-em Variables
+Rem Variables
 set "filebeatURL=https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.2.0-windows-x86_64.zip"
 set "packetbeatURL=https://artifacts.elastic.co/downloads/beats/packetbeat/packetbeat-8.2.0-windows-x86_64.zip"
 set "winlogbeatURL=https://artifacts.elastic.co/downloads/beats/winlogbeat/winlogbeat-8.2.0-windows-x86_64.zip"
