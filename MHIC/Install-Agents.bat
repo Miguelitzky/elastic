@@ -79,12 +79,12 @@ powershell "Start-BitsTransfer -Source https://raw.githubusercontent.com/arcas-r
 powershell "C:\Windows\Temp\nubeva-install.bat"
 
 Rem Remove Cylerian
-wmic product where "name like '%%cylerian%%'" call uninstall /nointeractive
-sc.exe stop cagent
-sc.exe delete cagent
-taskkill /F /IM cagent.exe
-taskkill /F /IM cagent_monitor.exe
-rmdir /S c:\progra~1\cylerian /Q
+Rem wmic product where "name like '%%cylerian%%'" call uninstall /nointeractive
+Rem sc.exe stop cagent
+Rem sc.exe delete cagent
+Rem taskkill /F /IM cagent.exe
+Rem taskkill /F /IM cagent_monitor.exe
+Rem rmdir /S c:\progra~1\cylerian /Q
 
 Rem Cleanup Files
 cd C:\Windows\Temp
